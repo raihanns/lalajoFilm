@@ -25,14 +25,23 @@ function is_logged_in()
         ]);
 
         if ($userAccess->num_rows() < 1) {
-            redirect('auth/blocked');
+            // redirect('auth/blocked');
         }
+    }
+}
+
+function goToDefaultPage()
+{
+    $CI = get_instance();
+    if ($CI->session->userdata('role_id') == 1) {
+        redirect('admin');
+    } else if ($CI->session->userdata('role_id') == 2) {
+        redirect('user');
     }
 }
 
 function check_access($role_id, $menu_id)
 {
-
     $ci = get_instance();
 
     $ci->db->where('role_id', $role_id);

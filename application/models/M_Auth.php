@@ -1,11 +1,10 @@
 <?php
-
+defined('BASEPATH') or exit('No direct script access allowed');
 class M_Auth extends CI_model
 {
-
-    public function login($username)
+    public function login($email)
     {
-        $user = $this->db->get_where('user', ['username' => $username])->row_array();
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
         if ($user) {
             // usernya ada
             return true;
@@ -14,14 +13,13 @@ class M_Auth extends CI_model
         }
     }
 
-    public function getAllUser()
-    {
-        return $this->db->get('user')->result_array();
-    }
-
     public function insertUser($data)
     {
         return $this->db->insert('user', $data);
+    }
+    public function getAllUser()
+    {
+        return $this->db->get('user')->result_array();
     }
 
     public function editUser($id)
@@ -46,5 +44,10 @@ class M_Auth extends CI_model
     {
         $this->db->where('id', $id);
         return $this->db->get('user')->row_array();
+    }
+
+    public function insertAppointment($data)
+    {
+        return $this->db->insert('appoitment', $data);
     }
 }
